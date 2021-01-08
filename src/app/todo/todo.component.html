@@ -1,0 +1,108 @@
+<div style="text-align:center">
+    <h2>To Do List</h2>
+</div>
+
+
+<fieldset>
+  <div  class="container" style="text-align:center">
+    <div class="card-panel">
+        <form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>  
+        
+          <div class="row">
+            <div class="col s12">
+                <h3><strong> Name <span style="color: red">*</span> </strong></h3>
+                  <input type="text" #name="ngModel" required class="form-control" [class.is-invalid]="name.invalid && name.touched" name="name" 
+                  [(ngModel)]="userModel.name" placeholder="type your name">
+                  <!-- {{name.valid}} -->
+                  <!-- <div *ngIf="phone.errors && (phone.invalid || phone.touched)"> -->
+                  <div *ngIf="name.invalid && name.touched">
+                      <small class="text-danger"> Name is required</small>
+                  </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+                <h3><strong> Password <span style="color: red">*</span> </strong></h3>
+                  <input type="password" #password="ngModel" required class="form-control" [class.is-invalid]="password.invalid && password.touched" 
+                  name="password" [(ngModel)]="userModel.password" placeholder="type your password">
+                  <!-- {{name.valid}} -->
+                  <!-- <div *ngIf="phone.errors && (phone.invalid || phone.touched)"> -->
+                  <div *ngIf="password.invalid && password.touched">
+                      <small class="text-danger"> Password is required</small>
+                  </div>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="col s12">
+                <h3><strong> Gender <span style="color: red">*</span> </strong></h3>
+                <p>
+                    <label>
+                        <input name="gender" required type="radio" value="male" [(ngModel)]="userModel.gender" />
+                        <span> Male </span>
+                    </label>
+                </p>
+                <p>
+                  <label>
+                      <input name="gender" required type="radio" value="female" [(ngModel)]="userModel.gender" />
+                      <span> Female </span>
+                  </label>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+                <h3><strong> Date Of Birth <span style="color: red">*</span> </strong></h3>
+                  <input type="date" #dateOfBirth="ngModel" required class="form-control" [class.is-invalid]="dateOfBirth.invalid && dateOfBirth.touched" name="dateOfBirth" [(ngModel)]="userModel.dateOfBirth">
+                  <div *ngIf="dateOfBirth.invalid && dateOfBirth.touched">
+                      <small class="text-danger"> Date of Birth is required</small>
+                  </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+                <h3><strong> Country <span style="color: red">*</span> </strong></h3>
+                  <select class="custom-select" required (keyup.enter)="validateCountry(country.value)" (blur)="validateCountry(country.value)" (change)="validateCountry(country.value)" #country="ngModel" [class.is-invalid]="countryHasError" name="country" [(ngModel)]="userModel.country">
+                      <option value="default">Country</option>
+                      <option *ngFor="let country of Country">{{ country }}</option>
+                  </select>
+                  <div *ngIf="countryHasError && !country.touched">
+                      <small class="text-danger"> Country is required</small>
+                  </div>     
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col s12">
+                <h3><strong> Interest <span style="color: red">*</span> </strong></h3>
+                <p>
+                    <label>
+                        <input name="people" type="checkbox" (change)="checkInterest('Cricket')" />
+                        <span> Cricket </span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="people" type="checkbox" (change)="checkInterest('Football')" />
+                        <span> Football </span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input name="people" type="checkbox" (change)="checkInterest('Golf')"  />
+                        <span> Golf </span>
+                    </label>
+                </p>
+            </div>
+          </div>
+          
+          <div class="center">
+              <button class="btn btn-primary"  [disabled]="userForm.form.invalid || countryHasError">Submit</button>
+          </div>
+        </form>
+      </div>
+  </div>
+</fieldset>
